@@ -1,0 +1,62 @@
+---
+title: "Assignment1_Mar13"
+author: "Garrett Bullivant"
+date: "2023-03-13"
+output: html_document
+---
+
+	Is the visualization pleasing to look at? 
+	Does the visualization accurately represent data?
+	Can we understand what message the maker of the visualization is attempting to convey?
+	Consider factors such as colour, size, use of images. Is this a ‘good’ data visualization? Why or why not?
+
+Life expectancy 2007
+- Challenging to see differences between countries because of 3D shape
+- Uneccessary papyrus background and font
+- Similar colours to denote different groups
+- Redundancy with label and legend
+
+Montrous costs 
+- Character distracts from data
+- Editorialized visualization
+- Angle make it challenging to interpret 
+- Lack of axes labels 
+
+Healy, 2018
+- Lack of any meaningful labels/titles 
+- Interesting to see difference in interprtation between same data with different aspect ratios
+
+2012 Presidential Run
+- Source: opinions
+- Data adds up to >100%?
+- Colours are jarring
+
+Wind map 
+- Good contrast
+- The motion is neat
+
+```{r}
+# load relevant libraries 
+library(tidyverse)
+library(ggplot2)
+library(socviz)
+library(gapminder)
+```
+
+```{r}
+# make object
+
+p <- ggplot(data = gapminder,
+            mapping = aes(x=gdpPercap, y = lifeExp))
+p + geom_point()
+
+```
+	Is the visualization pleasing to look at? 
+	Does the visualization accurately represent data?
+	Can we understand what message the maker of the visualization is attempting to convey?
+	Consider factors such as colour, size, use of images. Is this a ‘good’ data visualization? Why or why not?
+
+- aesthetics are not super appealing, kind of boring
+- hard to see each individual point - a lot of overlap
+- need units for each axes
+- mostly legible
