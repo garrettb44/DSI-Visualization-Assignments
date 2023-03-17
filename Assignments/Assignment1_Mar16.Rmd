@@ -1,0 +1,127 @@
+---
+title: "Assignment_Mar16"
+author: "Garrett Bullivant"
+date: "2023-03-16"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r}
+# load relevant libraries 
+library(tidyverse)
+library(ggplot2)
+library(socviz)
+library(gapminder)
+```
+
+
+
+```{r}
+# generate our first ggplot using gapminder dataset and plotting for gdpPercap against lifeExp
+# we must first generate our ggplot as an object and then plot it with our geom of choice
+
+p <- ggplot(data = gapminder, 
+            mapping = aes(x = gdpPercap, y = lifeExp))
+
+p + geom_point()
+```
+
+```{r}
+# we can also plot our ggplot with a trend line geom
+p + geom_smooth()
+```
+
+```{r}
+# we can make our trend line linear instead of additive
+p + geom_smooth(method = "lm")
+```
+```{r}
+# we can have more than one geom. We can include our data points and a trend line
+p + geom_point() + geom_smooth(method = "lm")
+```
+```{r}
+# since our data is skewed to the left we can log normalize it for better visualization 
+p + geom_point() + geom_smooth(method = "lm") + scale_x_log10()
+
+```
+
+```{r}
+# since we are working with gdp, we can change our scale to dollars 
+p + geom_point() + geom_smooth(method = "lm") + scale_x_log10(labels = scales::dollar)
+
+```
+```{r}
+# aesthetic mapping allows us to express a variable with a given visual element. Here we can add colour to the different continents
+p1 <- ggplot(data = gapminder, 
+            mapping = aes(x = gdpPercap, y = lifeExp, colour = continent))
+
+
+p1 + geom_smooth(method = "lm") + geom_point() + scale_x_log10(labels = scales::dollar)
+```
+
+```{r}
+# aesthetic setting occurs in the geom() object not the ggplot(). This applies to the entire dataset
+p + geom_point(colour = "purple") + geom_smooth(method = "lm") + scale_x_log10(labels = scales::dollar)
+
+```
+```{r}
+# we can also use aesthetic setting to change the opacity of our datasets points
+p + geom_point(alpha = 0.3) + geom_smooth(method = "lm") + scale_x_log10(labels = scales::dollar)
+
+```
+
+```{r}
+# we can use ggsave to save our most recent plot
+#ggsave(filename = “sampleimage.png")
+```
+```{r}
+# take code from the R graph gallery to make custom circular chart with multiple tracks
+# https://r-graph-gallery.com/227-add-several-tracks.html
+
+#library
+library(circlize)
+circos.clear()
+
+#Create data
+data = data.frame(
+    factor = sample(letters[1:8], 1000, replace = TRUE),
+    x = rnorm(1000), 
+    y = runif(1000)
+    )
+ 
+#Initialize the plot.
+par(mar = c(1, 1, 1, 1) ) 
+circos.initialize(factors = data$factor, x = data$x )
+ 
+
+# Build the regions of track #1 
+circos.trackPlotRegion(factors = data$factor, y=data$y, panel.fun = function(x, y) {
+    circos.axis(labels.cex=0.5, labels.font=1, lwd=0.8)
+    })
+# --> Add a scatterplot on it:
+circos.trackPoints(data$factor, data$x, data$y, col = rgb(0.1,0.5,0.8,0.3), pch=20)
+ 
+ 
+# Build the regions of track #2:
+circlize::circos.trackPlotRegion(factors = data$factor, y=data$y, panel.fun = function(x, y) {
+    circos.axis(labels=FALSE, major.tick=FALSE)
+    })
+# --> Add a scatterplot on it
+circos.trackPoints(data$factor, data$x, data$y, col = rgb(0.9,0.5,0.8,0.3), pch=20, cex=2)
+ 
+ 
+# Add track #3 --> don't forget you can custom the height of tracks!
+circos.par("track.height" = 0.4)
+circos.trackPlotRegion(factors = data$factor, y=data$y, panel.fun = function(x, y) {
+    circos.axis(labels=FALSE, major.tick=FALSE)
+    })
+circos.trackLines(data$factor, data$x, data$y, col = rgb(0.9,0.5,0.1,0.3), pch=20, cex=2, type="h")
+# and continue as long as needed!
+```
+
+
+- It is aesthetically pleasing to look at
+- I am not familiar with these kinds of graphs, so I'm not sure whether it accurately represents data
+- Furthermore, it is challenging for me to know what the graph is trying to convey
+- The lack of labels/legend makes it challenging to interpret 

@@ -2,13 +2,15 @@
 title: "Assignment1_Mar13"
 author: "Garrett Bullivant"
 date: "2023-03-13"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
-	Is the visualization pleasing to look at? 
-	Does the visualization accurately represent data?
-	Can we understand what message the maker of the visualization is attempting to convey?
-	Consider factors such as colour, size, use of images. Is this a ‘good’ data visualization? Why or why not?
+- Is the visualization pleasing to look at? 
+- Does the visualization accurately represent data?
+- Can we understand what message the maker of the visualization is attempting to convey?
+- Consider factors such as colour, size, use of images. Is this a ‘good’ data visualization? Why or why not?
 
 Life expectancy 2007
 - Challenging to see differences between countries because of 3D shape
@@ -51,10 +53,10 @@ p <- ggplot(data = gapminder,
 p + geom_point()
 
 ```
-	Is the visualization pleasing to look at? 
-	Does the visualization accurately represent data?
-	Can we understand what message the maker of the visualization is attempting to convey?
-	Consider factors such as colour, size, use of images. Is this a ‘good’ data visualization? Why or why not?
+- Is the visualization pleasing to look at? 
+- Does the visualization accurately represent data?
+- Can we understand what message the maker of the visualization is attempting to convey?
+- Consider factors such as colour, size, use of images. Is this a ‘good’ data visualization? Why or why not?
 
 - aesthetics are not super appealing, kind of boring
 - hard to see each individual point - a lot of overlap
