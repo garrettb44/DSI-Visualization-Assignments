@@ -1,0 +1,67 @@
+---
+title: "Assignment1_Apr1"
+author: "Garrett Bullivant"
+date: "2023-04-01"
+output: html_document
+---
+
+Activity: Comparing data visualizations
+How are they different? What does each visualization ‘do’?
+What are the pros and cons of each?
+- one is dynamic visualization, one is statiic
+- second visualization allows the user to interrogate 
+- second visualization is visually appealing
+- the word needs to be available to search up for second visualization
+- con of first visualization is some scientific notation that may not be accessible
+
+Activity: Types of changes
+- identity preserving type of change
+- spatial position changes and retinal elements stay the same
+- add other gender
+- maybe include less disciplines?
+
+```{r}
+#install.packages('rAmCharts')
+library(rAmCharts)
+amPlot(iris, col = c('Sepal.Length', 'Sepal.Width'), 
+type = c("line", "step"),
+zoom = TRUE, legend = TRUE)
+```
+
+```{r}
+# install packages neccessary for dynamic ggplot
+
+#install.packages('gganimate')
+#install.packages('gifski')
+
+library(ggplot2)
+library(gganimate)
+library(gifski)
+library(gapminder)
+
+# first we make a static plot
+p <- ggplot(gapminder, aes(x = gdpPercap, y=lifeExp, size = pop,
+colour = country)) +
+  geom_point(show.legend = FALSE, alpha = 0.7) +
+  scale_color_viridis_d() +
+  scale_size(range = c(2, 12)) +
+  scale_x_log10() +
+  labs(x = "GDP per capita", y = "Life expectancy")
+p
+
+```
+```{r}
+# lets animate plot for changes over time
+p2 <- p + transition_time(year) +
+  labs(title = "Year: {frame_time}")
+animate(p2, duration = 10, renderer = gifski_renderer())
+
+```
+
+SO COOL!!!!
+
+```{r}
+install.packages('shiny')
+library(shiny)
+```
+
